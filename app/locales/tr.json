@@ -1,0 +1,52 @@
+{
+  "pages": {
+    "auth": {
+      "login": {
+        "label": "Giriş Yap",
+        "sublabel": "Tekrar hoş geldiniz!",
+        "inputs": {
+          "email": "E-posta Adresi",
+          "password": "Şifre"
+        },
+        "buttons": {
+          "verify": "Doğrulama Kodu Gönder",
+          "submit": "Giriş Yap"
+        },
+        "header": {
+          "text": "Hesap Oluştur",
+          "subtext": "{name}'e ilk kez mi katılıyorsun?"
+        },
+        "messages": {
+          "error": "Giriş yaparken bir sorun oluştu",
+          "success": "Başarıyla giriş yapıldı"
+        },
+        "timeline": {
+          "verify": "Hesabın senin olduğunu doğrula",
+          "submit": "Giriş Yap"
+        }
+      },
+      "register": {
+        "label": "Kayıt Ol",
+        "sublabel": "Kayıt olduktan sonra iyi zaman geçirmenizi umuyorum",
+        "inputs": {
+          "email": "E-posta Adresi",
+          "username": "Kullanıcı Adı",
+          "firstName": "Ad",
+          "lastName": "Soyad",
+          "password": "Şifre"
+        },
+        "buttons": {
+          "submit": "Kayıt Ol"
+        },
+        "header": {
+          "text": "Giriş Yap",
+          "subtext": "{name} üzerinde ilk kez mi?"
+        },
+        "messages": {
+          "error": "Kayıt olurken bir sorun oluştu",
+          "success": "Başarıyla hesap oluşturuldu"
+        }
+      }
+    }
+  }
+}

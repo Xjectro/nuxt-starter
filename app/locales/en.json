@@ -1,0 +1,52 @@
+{
+  "pages": {
+    "auth": {
+      "login": {
+        "label": "Login",
+        "sublabel": "Welcome back!",
+        "inputs": {
+          "email": "Email Address",
+          "password": "Password"
+        },
+        "buttons": {
+          "verify": "Send Verification Code",
+          "submit": "Login"
+        },
+        "header": {
+          "text": "Create Account",
+          "subtext": "Is this your first time joining {name}?"
+        },
+        "messages": {
+          "error": "There was an issue logging in",
+          "success": "Successfully logged in"
+        },
+        "timeline": {
+          "verify": "Verify your account",
+          "submit": "Login"
+        }
+      },
+      "register": {
+        "label": "Register",
+        "sublabel": "I hope you have a good time after registering",
+        "inputs": {
+          "email": "Email Address",
+          "username": "Username",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "password": "Password"
+        },
+        "buttons": {
+          "submit": "Register"
+        },
+        "header": {
+          "text": "Login",
+          "subtext": "First time on {name}?"
+        },
+        "messages": {
+          "error": "An issue occurred while registering",
+          "success": "Account successfully created"
+        }
+      }
+    }
+  }
+}
