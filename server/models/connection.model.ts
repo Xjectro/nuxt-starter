@@ -14,6 +14,10 @@ export interface ConnectionType extends mongoose.Document {
   };
 }
 
+interface ConnectionModel extends mongoose.Model<ConnectionType> {
+  save({ ...state }: {}): Promise<boolean>
+}
+
 const connectionSchema = new Schema<ConnectionType>(
   {
     user: {
@@ -45,7 +49,15 @@ const connectionSchema = new Schema<ConnectionType>(
   { timestamps: true, versionKey: false, _id: false },
 );
 
-export const Connection = mongoose.model<ConnectionType>(
+connectionSchema.statics.save = async function saveConnection({ ...state }: ConnectionType) {
+  return await Connection.updateOne(
+    { user: state.user, type: state.type },
+    { $set: state },
+    { upsert: true },
+  );
+}
+
+export const Connection = mongoose.model<ConnectionType, ConnectionModel>(
   "connection",
   connectionSchema,
 );

@@ -11,7 +11,7 @@ export enum Role {
 
 export interface AuthType extends mongoose.Document {
   _id: mongoose.Schema.Types.ObjectId;
-  user: { _id: mongoose.Schema.Types.ObjectId };
+  user: any;
   refresh_token: string;
   email: string;
   password: string;
