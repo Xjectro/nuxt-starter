@@ -1,4 +1,5 @@
-import { User, verifyJWT } from "#imports";
+import { User } from "#imports";
+import { verifyJWT } from "../utils/modules/jwt";
 
 export default defineEventHandler(async (event) => {
   const token = getHeaders(event)
@@ -14,7 +15,7 @@ export default defineEventHandler(async (event) => {
 
   const decoded = verifyJWT(token);
 
-  if (!decoded.id) {
+  if (typeof decoded === 'string' || !decoded.id) {
     throw createError({
       statusCode: 401,
       statusMessage: "Token does not match credentials",
