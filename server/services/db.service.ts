@@ -1,12 +1,9 @@
 import { User, type UserType } from "../models/user.model";
-import { Tfa, type TfaType } from "../models/tfa.model";
 import { Auth, type AuthType } from "../models/auth.model";
-import { Connection, type ConnectionType } from "../models/connection.model";
 
 import { createAvatarURL } from "../utils/helpers";
 import { v4 as uuidV4 } from "uuid";
 
-import { generateCode } from "../utils/modules/crypto";
 import { generateJWT } from "../utils/modules/jwt";
 
 export const updateStates = (params: Record<string, unknown>) => {

@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { createUser } from "~~/server/services/db.services";
+import { createUser } from "~~/server/services/db.service";
 
 const schema = z.object({
   username: z.string().min(3).max(20).regex(/^\S*$/),

@@ -22,7 +22,7 @@ export const useUserStore = defineStore({
         const { error, data } = await useFetch("/api/users/@me", {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${authCookie.value.access_token}`,
+            Authorization: `Bearer ${authCookie.value?.access_token}`,
           },
         });
 

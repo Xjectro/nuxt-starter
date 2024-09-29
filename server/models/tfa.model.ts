@@ -1,12 +1,11 @@
-import mongoose from 'mongoose';
-import { UnauthorizedError } from '../../api/commons/exceptions';
-import { generateJWT } from '../../utils/modules/jwt';
-import { generateCode } from '../../utils/modules/crypto';
+import mongoose from "mongoose";
+import { generateJWT } from "../utils/modules/jwt";
+import { generateCode } from "../utils/modules/crypto";
 
 const Schema = mongoose.Schema;
 
 export interface TfaType extends mongoose.Document {
-  user: any;
+  user: { _id: mongoose.Schema.Types.ObjectId };
   interaction: string;
   used: boolean;
   usage_code: string;
@@ -14,15 +13,19 @@ export interface TfaType extends mongoose.Document {
 }
 
 interface TfaModel extends mongoose.Model<TfaType> {
-  checkTfa({ usage_code }: { usage_code: TfaType['usage_code'] }): Promise<TfaType>;
+  checkTfa({
+    usage_code,
+  }: {
+    usage_code: TfaType["usage_code"];
+  }): Promise<TfaType>;
   createTfa({
     user,
     format,
     interaction,
   }: {
-    user: TfaType['user'];
-    format?: 'jwt';
-    interaction: TfaType['interaction'];
+    user: TfaType["user"];
+    format?: "jwt";
+    interaction: TfaType["interaction"];
   }): Promise<{ usage_code: string; expiration: Date; tfa: TfaType }>;
 }
 
@@ -30,7 +33,7 @@ const tfaSchema = new Schema<TfaType>(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
       required: true,
     },
     interaction: {
@@ -54,15 +57,24 @@ const tfaSchema = new Schema<TfaType>(
   { timestamps: true, versionKey: false },
 );
 
-tfaSchema.statics.checkTfa = async function checkTfa({ usage_code }: { usage_code: TfaType['usage_code'] }) {
-  const tfa = await Tfa.findOne({ usage_code }).populate('user');
+tfaSchema.statics.checkTfa = async function checkTfa({
+  usage_code,
+}: {
+  usage_code: TfaType["usage_code"];
+}) {
+  const tfa = await Tfa.findOne({ usage_code }).populate("user");
 
   if (!tfa?.user) {
-    throw new UnauthorizedError('No user found matching usage code');
+    throw createError({
+      statusCode: 401,
+      statusMessage: "No user found matching usage code",
+    });
   }
-
   if (tfa.expiration <= new Date()) {
-    throw new UnauthorizedError('Usage code has expired');
+    throw createError({
+      statusCode: 401,
+      statusMessage: "Usage code has expired",
+    });
   }
 
   tfa.used = true;
@@ -76,15 +88,15 @@ tfaSchema.statics.createTfa = async function createTfa({
   format,
   interaction,
 }: {
-  user: TfaType['user'];
-  format: 'jwt';
-  interaction: TfaType['interaction'];
+  user: TfaType["user"];
+  format: "jwt";
+  interaction: TfaType["interaction"];
 }) {
-  let usage_code = '';
+  let usage_code = "";
   const expiration = new Date(Date.now() + 180 * 1000);
 
   switch (format) {
-    case 'jwt':
+    case "jwt":
       usage_code = generateJWT({ user, interaction }, 180);
       break;
     case undefined:
@@ -102,4 +114,4 @@ tfaSchema.statics.createTfa = async function createTfa({
   return { usage_code, expiration, tfa };
 };
 
-export const Tfa = mongoose.model<TfaType, TfaModel>('tfa', tfaSchema);
+export const Tfa = mongoose.model<TfaType, TfaModel>("tfa", tfaSchema);
