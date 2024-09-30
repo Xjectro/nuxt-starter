@@ -11,7 +11,6 @@ This project is a **Nuxt 3** application built with **TypeScript**, **Tailwind C
 - 🌍 **i18n (Internationalization)** with `@nuxtjs/i18n`.
 - 🎯 **Prettier** and **ESLint** for consistent code formatting and linting.
 - 🛡 **bcrypt** for password hashing.
-- 🚦 **Rate limiting** using `express-rate-limit`.
   
 ## 🛠 Technologies
 
