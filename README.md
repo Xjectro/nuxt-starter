@@ -86,7 +86,7 @@ bun run format
 
 ### Project Structure
 
-`pages/`: Nuxt 3 pages for routing.
-`components/`: Vue components for the application.
-`server/`: API and middlewares.
-`store/`: Pinia stores for state management.
+- `pages/`: Nuxt 3 pages for routing.
+- `components/`: Vue components for the application.
+- `server/`: API and middlewares.
+- `store/`: Pinia stores for state management.
